@@ -1,0 +1,20 @@
+
+
+
+export JAVA_HOME=/opt/homebrew/opt/openjdk@11
+
+
+spark-sql \
+    --packages 'org.apache.hudi:hudi-spark3.4-bundle_2.12:1.0.0,org.apache.hadoop:hadoop-aws:3.3.2' \
+    --conf 'spark.serializer=org.apache.spark.serializer.KryoSerializer' \
+    --conf 'spark.sql.extensions=org.apache.spark.sql.hudi.HoodieSparkSessionExtension' \
+    --conf 'spark.sql.catalog.spark_catalog=org.apache.spark.sql.hudi.catalog.HoodieCatalog' \
+    --conf 'spark.kryo.registrator=org.apache.spark.HoodieSparkKryoRegistrar' \
+    --conf "spark.sql.catalogImplementation=hive" \
+    --conf "spark.hadoop.hive.metastore.uris=thrift://localhost:9083" \
+    --conf "spark.hadoop.fs.s3a.access.key=admin" \
+    --conf "spark.hadoop.fs.s3a.secret.key=password" \
+    --conf "spark.hadoop.fs.s3a.endpoint=http://127.0.0.1:9000" \
+    --conf "spark.hadoop.fs.s3a.path.style.access=true" \
+    --conf "fs.s3a.signing-algorithm=S3SignerType"
+
